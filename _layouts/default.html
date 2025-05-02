@@ -1,0 +1,103 @@
+---
+layout: default
+---
+
+<!-- Reading Progress Bar -->
+{% include reading-progress.html %}
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <!-- Hero Section -->
+  <div class="post-hero">
+    <div class="post-hero__image" style="background-image: url('{{ page.image.path }}');">
+      <div class="post-hero__overlay"></div>
+      <div class="container">
+        <div class="post-hero__content">
+          <div class="post-meta">
+            {% for category in page.categories %}
+            <a href="{{ site.baseurl }}/categories/{{ category | slugify }}" class="post-category">{{ category }}</a>
+            {% endfor %}
+            <span class="post-date">
+              <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+                {{ page.date | date: "%b %-d, %Y" }}
+              </time>
+            </span>
+          </div>
+          <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+          <div class="post-subtitle">{{ page.description }}</div>
+          
+          <div class="post-info">
+            <div class="post-author">
+              {% assign author = site.data.authors[page.author] | default: site.author %}
+              <img src="{{ author.avatar }}" alt="{{ author.name }}" class="author-avatar">
+              <span>{{ author.name }}</span>
+            </div>
+            <div class="post-reading-time">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <span>{{ page.readtime }} min read</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="post-grid">
+      <!-- Main Content -->
+      <div class="post-content e-content" itemprop="articleBody">
+        {{ content }}
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="post-sidebar">
+        <!-- Author Bio -->
+        {% include author-bio.html %}
+
+        <!-- Table of Contents -->
+        <div class="toc-container">
+          <h4 class="toc-title">Table of Contents</h4>
+          {{ content | toc_only }}
+        </div>
+
+        <!-- Tags -->
+        {% if page.tags.size > 0 %}
+        <div class="post-tags">
+          <h4>Tags</h4>
+          <div class="tags-container">
+            {% for tag in page.tags %}
+            <a href="{{ site.baseurl }}/tags/{{ tag | slugify }}" class="tag">{{ tag }}</a>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- Share Buttons (Sticky) -->
+        <div class="share-buttons-sticky">
+          {% include share-buttons.html %}
+        </div>
+
+        <!-- Newsletter Signup -->
+        {% include newsletter.html %}
+      </aside>
+    </div>
+
+    <!-- Related Posts -->
+    {% include related-posts.html %}
+
+    <!-- Post Navigation -->
+    {% include post-navigation.html %}
+
+    <!-- Comments -->
+    {% if site.comments.provider and page.comments %}
+    <div class="post-comments">
+      <h3 class="comments-title">Join the conversation</h3>
+      {% include comments.html %}
+    </div>
+    {% endif %}
+  </div>
+</article>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" aria-label="Back to top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
