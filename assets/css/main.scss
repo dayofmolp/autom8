@@ -1,0 +1,971 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+@charset "utf-8";
+
+// Import variables and mixins first
+@import "variables";
+@import "mixins";
+@import "fonts";
+@import "colors";
+
+// Base styles
+@import "base";
+@import "grid";
+
+// Components
+@import "animations";
+@import "layout";
+@import "header";
+@import "footer";
+@import "post";
+@import "syntax";
+@import "toc";
+@import "responsive";
+@import "print";
+
+// Dark mode
+@import "dark-mode";
+
+// Custom styling
+:root {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: 'Merriweather', Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  
+  --spacing-0: 0;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+body {
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Modern Container
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-4);
+  
+  @media (min-width: 768px) {
+    padding: 0 var(--spacing-6);
+  }
+}
+
+// Post Grid Layout
+.post-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-8);
+  margin: var(--spacing-8) 0;
+  
+  @media (min-width: 992px) {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+// Post Hero Section
+.post-hero {
+  margin-bottom: var(--spacing-8);
+  
+  &__image {
+    position: relative;
+    height: 60vh;
+    min-height: 400px;
+    max-height: 600px;
+    background-size: cover;
+    background-position: center;
+    
+    @media (min-width: 768px) {
+      height: 70vh;
+    }
+  }
+  
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
+  }
+  
+  &__content {
+    position: relative;
+    padding: var(--spacing-16) 0;
+    color: white;
+    max-width: 800px;
+  }
+}
+
+// Post Title and Meta
+.post-title {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: var(--spacing-4);
+  
+  @media (min-width: 768px) {
+    font-size: 3.5rem;
+  }
+}
+
+.post-subtitle {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin-bottom: var(--spacing-6);
+  opacity: 0.9;
+}
+
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-4);
+  font-size: 0.875rem;
+}
+
+.post-category {
+  background-color: var(--accent-color);
+  color: white;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.75rem;
+  
+  &:hover {
+    background-color: var(--secondary-color);
+  }
+}
+
+.post-date {
+  opacity: 0.8;
+}
+
+.post-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+}
+
+.post-author {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.author-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+
+.post-reading-time {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  opacity: 0.8;
+}
+
+// Post Content Styling
+.post-content {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.8;
+  
+  h2 {
+    font-family: var(--font-sans);
+    font-size: 2rem;
+    margin-top: var(--spacing-12);
+    margin-bottom: var(--spacing-6);
+    padding-bottom: var(--spacing-2);
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  h3 {
+    font-family: var(--font-sans);
+    font-size: 1.5rem;
+    margin-top: var(--spacing-8);
+    margin-bottom: var(--spacing-4);
+  }
+  
+  p {
+    margin-bottom: var(--spacing-6);
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    margin: var(--spacing-6) 0;
+  }
+  
+  .img-fluid {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: var(--shadow-lg);
+  }
+  
+  blockquote {
+    margin: var(--spacing-8) 0;
+    padding: var(--spacing-6) var(--spacing-8);
+    border-left: 4px solid var(--accent-color);
+    background-color: var(--blockquote-bg);
+    border-radius: var(--radius-md);
+    font-style: italic;
+    
+    &.blockquote-styled {
+      position: relative;
+      
+      &::before {
+        content: """;
+        font-family: Georgia, serif;
+        font-size: 4rem;
+        position: absolute;
+        left ---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+@charset "utf-8";
+
+// Import variables and mixins first
+@import "variables";
+@import "mixins";
+@import "fonts";
+@import "colors";
+
+// Base styles
+@import "base";
+@import "grid";
+
+// Components
+@import "animations";
+@import "layout";
+@import "header";
+@import "footer";
+@import "post";
+@import "syntax";
+@import "toc";
+@import "responsive";
+@import "print";
+
+// Dark mode
+@import "dark-mode";
+
+// Custom styling
+:root {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: 'Merriweather', Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  
+  --spacing-0: 0;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+body {
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Modern Container
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-4);
+  
+  @media (min-width: 768px) {
+    padding: 0 var(--spacing-6);
+  }
+}
+
+// Post Grid Layout
+.post-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-8);
+  margin: var(--spacing-8) 0;
+  
+  @media (min-width: 992px) {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+// Post Hero Section
+.post-hero {
+  margin-bottom: var(--spacing-8);
+  
+  &__image {
+    position: relative;
+    height: 60vh;
+    min-height: 400px;
+    max-height: 600px;
+    background-size: cover;
+    background-position: center;
+    
+    @media (min-width: 768px) {
+      height: 70vh;
+    }
+  }
+  
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
+  }
+  
+  &__content {
+    position: relative;
+    padding: var(--spacing-16) 0;
+    color: white;
+    max-width: 800px;
+  }
+}
+
+// Post Title and Meta
+.post-title {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: var(--spacing-4);
+  
+  @media (min-width: 768px) {
+    font-size: 3.5rem;
+  }
+}
+
+.post-subtitle {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin-bottom: var(--spacing-6);
+  opacity: 0.9;
+}
+
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-4);
+  font-size: 0.875rem;
+}
+
+.post-category {
+  background-color: var(--accent-color);
+  color: white;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.75rem;
+  
+  &:hover {
+    background-color: var(--secondary-color);
+  }
+}
+
+.post-date {
+  opacity: 0.8;
+}
+
+.post-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+}
+
+.post-author {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.author-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+
+.post-reading-time {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  opacity: 0.8;
+}
+
+// Post Content Styling
+.post-content {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.8;
+  
+  h2 {
+    font-family: var(--font-sans);
+    font-size: 2rem;
+    margin-top: var(--spacing-12);
+    margin-bottom: var(--spacing-6);
+    padding-bottom: var(--spacing-2);
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  h3 {
+    font-family: var(--font-sans);
+    font-size: 1.5rem;
+    margin-top: var(--spacing-8);
+    margin-bottom: var(--spacing-4);
+  }
+  
+  p {
+    margin-bottom: var(--spacing-6);
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    margin: var(--spacing-6) 0;
+  }
+  
+  .img-fluid {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: var(--shadow-lg);
+  }
+  
+  blockquote {
+    margin: var(--spacing-8) 0;
+    padding: var(--spacing-6) var(--spacing-8);
+    border-left: 4px solid var(--accent-color);
+    background-color: var(--blockquote-bg);
+    border-radius: var(--radius-md);
+    font-style: italic;
+    
+    &.blockquote-styled {
+      position: relative;
+      
+      &::before {
+        content: """;
+        font-family: Georgia, serif;
+        font-size: 4rem;
+        position: absolute;
+        left: var(--spacing-2);
+        top: -0.5rem;
+        color: var(--accent-color);
+        opacity: 0.2;
+      }
+      
+      p {
+        position: relative;
+        z-index: 1;
+      }
+    }
+  }
+  
+  code {
+    font-family: var(--font-mono);
+    background-color: var(--code-bg);
+    color: var(--code-color);
+    padding: var(--spacing-1) var(--spacing-2);
+    border-radius: var(--radius-sm);
+    font-size: 0.875em;
+  }
+  
+  pre {
+    background-color: var(--pre-bg);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-4);
+    margin: var(--spacing-6) 0;
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    
+    code {
+      background-color: transparent;
+      padding: 0;
+      font-size: 0.875rem;
+      color: var(--pre-color);
+      line-height: 1.6;
+    }
+  }
+  
+  table {
+    width: 100%;
+    margin: var(--spacing-8) 0;
+    border-collapse: collapse;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    
+    th {
+      background-color: var(--accent-color);
+      color: white;
+      font-weight: 600;
+      text-align: left;
+      padding: var(--spacing-3) var(--spacing-4);
+    }
+    
+    td {
+      padding: var(--spacing-3) var(--spacing-4);
+      border-top: 1px solid var(--border-color);
+    }
+    
+    tr:nth-child(even) {
+      background-color: var(--table-alt-bg);
+    }
+    
+    tr:hover {
+      background-color: var(--table-hover-bg);
+    }
+  }
+  
+  ul, ol {
+    margin: var(--spacing-6) 0;
+    padding-left: var(--spacing-6);
+    
+    li {
+      margin-bottom: var(--spacing-2);
+    }
+  }
+  
+  hr {
+    margin: var(--spacing-8) 0;
+    border: 0;
+    height: 1px;
+    background-color: var(--border-color);
+  }
+}
+
+// Post Sidebar
+.post-sidebar {
+  position: sticky;
+  top: var(--spacing-8);
+  
+  & > div {
+    margin-bottom: var(--spacing-8);
+    padding: var(--spacing-6);
+    border-radius: var(--radius-lg);
+    background-color: var(--sidebar-bg);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  h4 {
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-4);
+    padding-bottom: var(--spacing-2);
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
+// Table of Contents
+.toc-container {
+  .toc-list {
+    list-style-type: none;
+    padding-left: 0;
+    
+    .toc-item {
+      margin-bottom: var(--spacing-2);
+      
+      a {
+        display: block;
+        padding: var(--spacing-1) var(--spacing-2);
+        border-left: 2px solid var(--border-color);
+        text-decoration: none;
+        color: var(--text-color);
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          color: var(--accent-color);
+          border-left-color: var(--accent-color);
+          background-color: var(--toc-hover-bg);
+          padding-left: var(--spacing-3);
+        }
+      }
+      
+      &.active a {
+        color: var(--accent-color);
+        border-left-color: var(--accent-color);
+        font-weight: 600;
+        background-color: var(--toc-active-bg);
+      }
+    }
+    
+    .toc-sublist {
+      list-style-type: none;
+      padding-left: var(--spacing-4);
+    }
+  }
+}
+
+// Tags
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.tag {
+  display: inline-block;
+  padding: var(--spacing-1) var(--spacing-3);
+  background-color: var(--tag-bg);
+  color: var(--tag-color);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-decoration: none;
+  
+  &:hover {
+    background-color: var(--tag-hover-bg);
+  }
+}
+
+// Author Bio
+.author-bio {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  
+  &__avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+  }
+  
+  &__content {
+    h5 {
+      margin: 0 0 var(--spacing-1);
+      font-size: 1.1rem;
+    }
+    
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+  }
+}
+
+// Share Buttons
+.share-buttons {
+  display: flex;
+  gap: var(--spacing-2);
+  
+  &-sticky {
+    position: sticky;
+    top: calc(var(--spacing-8) + 250px);
+  }
+  
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    color: white;
+    transition: transform 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+    
+    &--twitter {
+      background-color: #1DA1F2;
+    }
+    
+    &--facebook {
+      background-color: #4267B2;
+    }
+    
+    &--linkedin {
+      background-color: #0A66C2;
+    }
+    
+    &--reddit {
+      background-color: #FF4500;
+    }
+  }
+}
+
+// Newsletter
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  
+  p {
+    font-size: 0.9rem;
+    margin: 0 0 var(--spacing-3);
+  }
+  
+  input {
+    padding: var(--spacing-3) var(--spacing-4);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    
+    &:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(var(--accent-color-rgb), 0.25);
+    }
+  }
+  
+  button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: var(--spacing-3) var(--spacing-4);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background-color: var(--secondary-color);
+    }
+  }
+}
+
+// Related Posts
+.related-posts {
+  margin: var(--spacing-12) 0;
+  
+  h3 {
+    font-size: 1.75rem;
+    margin-bottom: var(--spacing-6);
+  }
+  
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: var(--spacing-6);
+    
+    @media (min-width: 576px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (min-width: 992px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+// Post Card
+.post-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: var(--card-bg);
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  &__image {
+    height: 200px;
+    overflow: hidden;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    &:hover img {
+      transform: scale(1.05);
+    }
+  }
+  
+  &__content {
+    padding: var(--spacing-4) var(--spacing-5);
+  }
+  
+  &__title {
+    font-size: 1.25rem;
+    margin: 0 0 var(--spacing-2);
+    line-height: 1.3;
+    
+    a {
+      color: var(--text-color);
+      text-decoration: none;
+      
+      &:hover {
+        color: var(--accent-color);
+      }
+    }
+  }
+  
+  &__excerpt {
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-3);
+    opacity: 0.8;
+  }
+  
+  &__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+}
+
+// Post Navigation
+.post-navigation {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-4);
+  margin: var(--spacing-8) 0;
+  
+  &__item {
+    padding: var(--spacing-4);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background-color: var(--card-hover-bg);
+    }
+    
+    &--prev {
+      text-align: left;
+    }
+    
+    &--next {
+      text-align: right;
+    }
+    
+    &-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      opacity: 0.6;
+      margin-bottom: var(--spacing-1);
+    }
+    
+    &-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      
+      a {
+        color: var(--text-color);
+        text-decoration: none;
+        
+        &:hover {
+          color: var(--accent-color);
+        }
+      }
+    }
+  }
+}
+
+// Reading Progress Bar
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 4px;
+  background-color: var(--accent-color);
+  z-index: 1000;
+  transition: width 0.1s ease;
+}
+
+// Back to Top Button
+#back-to-top {
+  position: fixed;
+  bottom: var(--spacing-6);
+  right: var(--spacing-6);
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-full);
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  &:hover {
+    background-color: var(--secondary-color);
+  }
+}
