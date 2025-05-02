@@ -1,0 +1,169 @@
+# Site settings
+title: Aesthetically Pleasing Blog
+tagline: Beautiful Content Delivered Automatically
+email: your-email@example.com
+description: >-
+  An aesthetically stunning blog with automatically generated content and 
+  beautiful styling that engages readers and delivers value.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://your-domain.com" # the base hostname & protocol
+logo: /assets/images/logo.svg
+favicon: /assets/images/favicon/favicon.png
+
+# Social accounts
+twitter:
+  username: yourusername
+  card: summary_large_image
+github_username: yourusername
+instagram_username: yourusername
+linkedin_username: yourusername
+
+# Theme settings
+theme_mode: auto # auto, light, dark
+accent_color: "#6d28d9" # Main accent color
+secondary_color: "#4f46e5" # Secondary accent color
+link_color: "#6d28d9" # Link color
+background_color: "#f8fafc" # Light mode background
+dark_background_color: "#1e293b" # Dark mode background
+text_color: "#1e293b" # Light mode text
+dark_text_color: "#f8fafc" # Dark mode text
+
+# Author settings
+author:
+  name: AI Writer
+  bio: >-
+    Professional content creator specializing in informative, 
+    engaging, and aesthetically pleasing articles.
+  avatar: /assets/images/ai-writer-avatar.png
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:year/:month/:day/:title/
+paginate: 9
+paginate_path: "/page/:num/"
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-redirect-from
+  - jekyll-archives
+  - jekyll-toc
+  - jekyll-include-cache
+
+# Jekyll Archives
+jekyll-archives:
+  enabled:
+    - categories
+    - tags
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    category: /categories/:name/
+    tag: /tags/:name/
+
+# Table of Contents
+toc:
+  min_level: 2
+  max_level: 3
+  ordered_list: false
+  no_toc_section_class: no-toc
+  list_class: toc-list
+  sublist_class: toc-sublist
+  item_class: toc-item
+  item_prefix: toc-
+
+# Collections
+collections:
+  featured:
+    output: true
+    permalink: /:collection/:name/
+
+# Default front matter
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "AI Writer"
+      comments: true
+      toc: true
+      image:
+        path: /assets/images/default-hero.jpg
+        alt: Featured Image
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+  -
+    scope:
+      path: ""
+      type: "featured"
+    values:
+      layout: "post"
+      author: "AI Writer"
+      comments: true
+      toc: true
+      featured: true
+
+# Feed settings
+feed:
+  posts_limit: 20
+  excerpt_only: true
+
+# SEO settings
+twitter:
+  username: yourusername
+  card: summary_large_image
+facebook:
+  app_id: 123456789
+  publisher: 123456789
+  admins: 123456789
+social:
+  name: Your Name
+  links:
+    - https://twitter.com/yourusername
+    - https://www.linkedin.com/in/yourusername
+    - https://github.com/yourusername
+    - https://instagram.com/yourusername
+
+# Analytics
+google_analytics: UA-XXXXXXXXX-X
+
+# Comments
+comments:
+  provider: "utterances" # disqus, utterances, giscus
+  utterances:
+    repo: yourusername/blog-comments
+    issue-term: pathname
+    label: comment
+    theme: github-light
+    crossorigin: anonymous
+
+# Search
+search:
+  enabled: true
+  provider: "algolia" # or "lunr" for local search
+  algolia:
+    application_id: your_application_id
+    index_name: your_index_name
+    search_only_api_key: your_search_only_api_key
+    files_to_exclude:
+      - index.html
+      - 404.html
+      - search.html
+
+# Newsletter
+newsletter:
+  enabled: true
+  provider: "mailchimp" # mailchimp, convertkit, substack
+  mailchimp:
+    endpoint: https://yourdomain.us1.list-manage.com/subscribe/post?u=abc123&amp;id=def456
